@@ -27,13 +27,12 @@ class kb:
         return msg.replace('if ','').replace(' then ',' ')
     def estabish_link(self):
         for r in self.rulse:
-            # conclusion = ['x and y','q']
-            conclusion = self.remov_it(r).split()[1]
+            conclusion = r.split()[3]
             for j in self.rulse:
                 if j is not r:
                     #premise = ['q','z']
-                    premise = self.remov_it(j).split()[0]
-                    
+                    premise = j.split()[1]
+                    #link = ["x and y",'q']
                     link = r.split()[1]
                     if premise in conclusion:
                         try:
@@ -45,9 +44,12 @@ class kb:
                 if conclusion not in self.linkage:
                     try:
                         self.result[ conclusion ] += [ r.split()[1] ]
-                        self.result[ conclusion ] = list(set(self.result))
+                        self.result[ conclusion ] = list(set(self.result[conclusion]))
                     except KeyError:
                         self.result[ conclusion ] = [ r.split()[1] ]
+        print(self.linkage)
+        print(self.truth)
+        print(self.result)
     def run(self):
         for R in self.rulse:
             prev = R[3]
@@ -63,15 +65,16 @@ class kb:
                 if count == len(self.linkage[prev]):
                     self.truth[prev] = True
 
-                if conclu in self.result:
-                    count = 0
-                    for J in self.linkage[prev]:
-                        if self.truth[J]:
-                            count += 1
-                    if count == len(self.linkage[prev]):
-                        print("Result: ",conclu)
-                    else:
-                        print("Result wasn't found")
+            if conclu in self.result:
+                count = 0
+                for J in self.result[conclu]:
+                    if self.truth[J]:
+                        count += 1
+                if count == len(self.result[conclu]):
+                    print("Result: ",conclu)
+                else:
+                    print("Result wasn't found")
+            print(self.truth)
 t = kb()
 t.estabish_link()
 t.run()
