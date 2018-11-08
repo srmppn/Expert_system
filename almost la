@@ -1,0 +1,77 @@
+class node:
+    def __init__(self):
+        self.truth = False
+        self.link = []
+
+class get_rules:
+    def __init__(self):
+        self.rules = []
+        self.truth = {}
+        self.numb_r = int(input("Number of rulse: "))
+        for i in range(self.numb_r):
+            self.rules.append(input("Enter rules: "))
+            self.truth[self.rules[i][3]] = False
+    def get_rule(self):
+        return self.rules
+    def get_truth(self):
+        return self.truth
+
+class kb:
+    def __init__(self):
+        rule = get_rules()
+        self.rulse = rule.get_rule()
+        self.truth = rule.get_truth()
+        self.linkage = {}
+        self.result = {}
+    def remov_it(self,msg):
+        return msg.replace('if ','').replace(' then ',' ')
+    def estabish_link(self):
+        for r in self.rulse:
+            # conclusion = ['x and y','q']
+            conclusion = self.remov_it(r).split()[1]
+            for j in self.rulse:
+                if j is not r:
+                    #premise = ['q','z']
+                    premise = self.remov_it(j).split()[0]
+                    
+                    link = r.split()[1]
+                    if premise in conclusion:
+                        try:
+                            self.linkage[ premise ] += [ link ]
+                            self.linkage[premise] = list(set(self.linkage[premise]))
+                        except KeyError:
+                            self.linkage[ premise ] = [ link ]
+            else:
+                if conclusion not in self.linkage:
+                    try:
+                        self.result[ conclusion ] += [ r.split()[1] ]
+                        self.result[ conclusion ] = list(set(self.result))
+                    except KeyError:
+                        self.result[ conclusion ] = [ r.split()[1] ]
+    def run(self):
+        for R in self.rulse:
+            prev = R[3]
+            conclu = R[10]
+            if prev not in self.linkage:
+                msg = "Is " + prev + " T/F : "
+                self.truth[prev] = input(msg) == "t"
+            else:
+                count = 0
+                for J in self.linkage[prev]:
+                    if self.truth[J]:
+                        count += 1
+                if count == len(self.linkage[prev]):
+                    self.truth[prev] = True
+
+                if conclu in self.result:
+                    count = 0
+                    for J in self.linkage[prev]:
+                        if self.truth[J]:
+                            count += 1
+                    if count == len(self.linkage[prev]):
+                        print("Result: ",conclu)
+                    else:
+                        print("Result wasn't found")
+t = kb()
+t.estabish_link()
+t.run()
