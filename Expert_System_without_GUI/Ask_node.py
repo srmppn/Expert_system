@@ -1,5 +1,4 @@
-import tkinter as tk
-from tkinter import ttk
+from tkinter import *
 # ------------------------------------------
 # I forgot what is this line responsible for..
 class node:
@@ -53,6 +52,7 @@ class kb:
         self.rules_ipm = rule.get_rule_ipm()
         self.linkage = {}
         self.result = {}
+
     def remov_it(self,msg):
         return msg.replace('if ','').replace(' then ',' ')
     # ---------------------------------------
@@ -90,6 +90,7 @@ class kb:
     def remov_it(self, msg):
         return msg.replace(' and ','-').replace(' or ','-')
     def run(self):
+        conclude = "Result: "
         # ------------------------------------------------------------
         # another variable just for count the result
         numb_result = 0
@@ -117,16 +118,17 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count == len(self.result[check]):
-                            print("Result:",check)
+                            conclude += ( check + ", " )
                             numb_result += 1
                     else:
                         count = 0
                         for re in self.linkage[check]:
                             if self.truth[re]:
                                 count += 1
-                        if count == len(self.linkage[check]):
-                            msg = "Is " + prev + " True or False? : "
+                        if count == len(self.linkage[check]) and check not in prevent:
+                            msg = "Is " + check + " True or False? : "
                             self.truth[check] = input(msg) == "t"
+                            prevent.append(check)
                 # ----------------------------------------------------
                 # or-type checker
                 elif "or" in K:
@@ -136,16 +138,17 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count > 0:
-                            print("Result:",check)
+                            conclude += ( check + ", " )
                             numb_result += 1
                     else:
                         count = 0
                         for re in self.linkage[check]:
                             if self.truth[re]:
                                 count += 1
-                        if count > 0:
-                            msg = "Is " + prev + " True or False? : "
+                        if count > 0 and check not in prevent:
+                            msg = "Is " + check + " True or False? : "
                             self.truth[check] = input(msg) == "t"
+                            prevent.append(check)
                 # ----------------------------------------------------
                 # otherwise checker
                 else:
@@ -155,28 +158,49 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count == len(self.result[check]):
-                            print("Result:",check)
+                            conclude += ( check + ", " )
                             numb_result += 1
                     else:
                         count = 0
                         for re in self.linkage[check]:
                             if self.truth[re]:
                                 count += 1
-                        if count == len(self.linkage[check]):
-                            msg = "Is " + prev + " True or False? : "
+                        if count == len(self.linkage[check]) and check not in prevent:
+                            msg = "Is " + check + " True or False? : "
                             self.truth[check] = input(msg) == "t"
+                            prevent.append(check)
         # ----------------------------------------------------
         # The numb_result just count how many results are found
         # if it's zero that means result wasn't found
         if numb_result is 0:
             print("Result wasn't found")
-
+        else:
+            print(conclude)
+        # print result ----------------------------------------
+        # end of statement ------------------------------------
 
 
 #---Expert_System_Implementation---;
 #-----------main-------------------;
+#-------with_GUI-------------------;
+'''
+window = Tk()
+window.title("Expert System")
+Label(window,text="Enter number of rules: ").grid(column=0,row=0)
+
+numb = StringVar()
+numb_ent = Entry(window,width=6,textvariable=numb)
+numb_ent.grid(column=1,row=0)
+numb_ent.focus()
+
+but1 = Button(window,text="Submit",click)
+but1.grid(column=3,row=0)
+
+window.config(width=500,height=500)
+window.mainloop()
+'''
+#-------------Without_GUI----------;
 t = kb()
 t.estabish_link()
 t.run()
-
 #----------------------------------;
