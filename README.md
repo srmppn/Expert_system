@@ -1,5 +1,5 @@
 # Expert_system
-- expert system or rule-based system or knowledge-based system using python
+- expert system or rule-based system or knowledge-based system or what ever they're called using python
 # Please read
 - I love you
 # Warning
