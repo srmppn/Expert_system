@@ -175,7 +175,7 @@ class kb:
         if numb_result is 0:
             print("Result wasn't found")
         else:
-            print(conclude)
+            print(conclude[0:-2])
         # print result ----------------------------------------
         # end of statement ------------------------------------
 
