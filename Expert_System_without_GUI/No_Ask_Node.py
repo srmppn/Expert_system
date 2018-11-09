@@ -90,6 +90,8 @@ class kb:
     def remov_it(self, msg):
         return msg.replace(' and ','-').replace(' or ','-')
     def run(self):
+        #------conclude-----------------------------------------------
+        conclude = "Result: "
         # ------------------------------------------------------------
         # another variable just for count the result
         numb_result = 0
@@ -117,7 +119,7 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count == len(self.result[check]):
-                            print("Result:",check)
+                            conclude += (check + ", ")
                             numb_result += 1
                     else:
                         count = 0
@@ -135,7 +137,7 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count > 0:
-                            print("Result:",check)
+                            conclude += (check + ", ")
                             numb_result += 1
                     else:
                         count = 0
@@ -153,7 +155,7 @@ class kb:
                             if self.truth[re]:
                                 count += 1
                         if count == len(self.result[check]):
-                            print("Result:",check)
+                            conclude += (check + ", ")
                             numb_result += 1
                     else:
                         count = 0
@@ -167,6 +169,8 @@ class kb:
         # if it's zero that means result wasn't found
         if numb_result is 0:
             print("Result wasn't found")
+        else:
+            print(conclude[0:-2])
 
 
 #---Expert_System_Implementation---;
@@ -174,8 +178,4 @@ class kb:
 t = kb()
 t.estabish_link()
 t.run()
-
-
-
-
 #----------------------------------;
