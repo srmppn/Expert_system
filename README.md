@@ -4,7 +4,7 @@
 - I love you
 # How to use
 - first step enter the number of rules that you're going to use.
-- then enter the rule based on this form -> if [premise] then [conclusion], for example "if a then b" or "if bork then dog"
+- then enter each rule, based on this form -> if [premise] then [conclusion], for example "if a then b" or "if bork then dog"
 - once you've done all of that it's going to diagnosing phase which will ask the user about the truth of each node.
 - after that the result will show up if it exists.
 # Warning
