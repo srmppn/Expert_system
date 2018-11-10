@@ -1,4 +1,5 @@
 from tkinter import *
+# contributor: srmppn @contact somrak.monpengpinit@g.swu.ac.th
 # ------------------------------------------
 # I forgot what is this line responsible for..
 class node:
