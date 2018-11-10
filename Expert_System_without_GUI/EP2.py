@@ -1,4 +1,6 @@
 from tkinter import *
+# contributor srmppn @contact somrak.monpengpinit@g.swu.ac.th
+# This version doesn't have to ask everynode
 # ------------------------------------------
 # I forgot what is this line responsible for..
 class node:
