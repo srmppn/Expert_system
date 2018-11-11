@@ -1,7 +1,5 @@
 # Expert_system
 - expert system or rule-based system or knowledge-based system or what ever they're called using python
-# Please read
-- I love you
 # How to use
 - first step enter the number of rules that you're going to use.
 - then enter each rule, based on this form -> if [premise] then [conclusion], for example "if a then b" or "if bork then dog"
