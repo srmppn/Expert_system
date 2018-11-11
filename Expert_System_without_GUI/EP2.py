@@ -1,6 +1,4 @@
 from tkinter import *
-# contributor srmppn @contact somrak.monpengpinit@g.swu.ac.th
-# This version doesn't have to ask everynode
 # ------------------------------------------
 # I forgot what is this line responsible for..
 class node:
@@ -87,6 +85,21 @@ class kb:
         print(self.result)
         '''
         #---------------------------------------
+    def shuffle(self):
+        implement = []
+        for K in self.rulse:
+            if K not in implement:
+                implement.append(K)
+            phrase1 = K.split(' then ')
+            temp2 = phrase1[1].replace(' and ','-').replace(' or ','-').split('-')
+            for J in self.rulse:
+                if K is not J:
+                    phrase2 = J.split(' then ')
+                    temp1 = phrase2[0][3:].replace(' and ', '-').replace(' or ', '-').split('-')
+                    for c in temp1:
+                        if c in temp2 and J not in implement:
+                            implement.append(J)
+        return implement
     def run(self):
         print("#---------------DIAGNOSING-----------------#")
         conclude = "Result: "
@@ -104,7 +117,7 @@ class kb:
                 prevent.append(prev)
         #-------------------------------------------------------------
         # Traverse into the trees and check all the values in there
-        for K in self.rulse:
+        for K in self.shuffle():
             # msg.replace('if ','').replace(' then ',' ')
             phrase = K.split(' then ')
             temp = phrase[1].replace(' and ','-').replace(' or ','-').split('-')
@@ -163,6 +176,7 @@ class kb:
                                 count += 1
                         if count == len(self.linkage[check]):
                             self.truth[check] = True
+        '''
          # show up result type 1
                 if numb_result > 0:
                     print("#---------------CONCLUSION-----------------#")
@@ -171,17 +185,16 @@ class kb:
         else:
             print("#---------------CONCLUSION-----------------#")
             print("# Result wasn't found")
+        '''
         # ----------------------------------------------------
         # The numb_result just count how many results are found
         # if it's zero that means result wasn't found
         # show up result type 2
-        '''
         print("#---------------CONCLUSION-----------------#")
         if numb_result is 0:
             print("# Result wasn't found")
         else:
             print('#',conclude[0:-2])
-        '''
         # print result ----------------------------------------
         # end of statement ------------------------------------
 
